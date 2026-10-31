@@ -29,6 +29,8 @@ WireGuard's UDP packets are wrapped in fake TCP, which helps on networks that bl
    0) Exit
 ```
 
+The status line (`Role / udp2raw / wg0`) appears after the first install. Before that, the menu shows `Not installed yet`.
+
 ## Quick start
 
 You need Debian or Ubuntu with systemd, and root access.
