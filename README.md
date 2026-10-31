@@ -97,3 +97,7 @@ sudo wg2raw uninstall
 - If the status screen shows "huge packet" warnings, lower the MTU to `1200` in Settings, or turn on the NIC offload fix.
 - The udp2raw password is still visible in `ps` output, because udp2raw only accepts it as an argument.
 - IPv4 only.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
