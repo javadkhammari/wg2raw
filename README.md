@@ -7,29 +7,25 @@ A menu-driven Bash tool that sets up and manages a **WireGuard tunnel over [udp2
 
 WireGuard's UDP packets are wrapped in fake TCP, which helps on networks that block or throttle plain UDP.
 
-```
-  ╦ ╦╔═╗╔═╗╦═╗╔═╗╦ ╦
-  ║║║║ ╦╔═╝╠╦╝╠═╣║║║
-  ╚╩╝╚═╝╚═╝╩╚═╩ ╩╚╩╝   v2.0.0
-  WireGuard over udp2raw (faketcp)
-
-  Role: SERVER   udp2raw: ● running   wg0: ● running
-  ───────────────────────────────────────────────
-   1) Install / reconfigure SERVER  (upstream side)
-   2) Install / reconfigure CLIENT  (local side)
-
-   3) Status
-   4) Show client connection code   (server)
-   5) Logs
-   6) Restart tunnel
-   7) Settings (MTU, keepalive, NAT...)
-
-   8) Install / update udp2raw binary
-   9) Uninstall
-   0) Exit
-```
+<p align="center">
+  <img src="docs/menu.svg" alt="wg2raw menu" width="49%">
+  <img src="docs/status.svg" alt="wg2raw status screen" width="49%">
+</p>
 
 The status line (`Role / udp2raw / wg0`) appears after the first install. Before that, the menu shows `Not installed yet`.
+
+## How it works
+
+```mermaid
+flowchart LR
+    subgraph C["Client"]
+        WG1["WireGuard wg0"] -->|"UDP 127.0.0.1:51820"| U1["udp2raw client"]
+    end
+    subgraph S["Server"]
+        U2["udp2raw server"] -->|"UDP 127.0.0.1:51820"| WG2["WireGuard wg0"]
+    end
+    U1 ==>|"fake TCP :443"| U2
+```
 
 ## Quick start
 
