@@ -63,6 +63,27 @@ sudo wg2raw
 - **Safe to re-run.** Old services are stopped and every file is rewritten from the saved settings.
 - **Clean uninstall** that also removes the iptables rules.
 
+## Real-world results
+
+Measured on a real deployment: the client side sits on a network where outbound UDP is limited to a few hundred kbit/s, and the server is in Europe. Traffic went from a phone through an Xray (VMess) inbound over wg2raw, tested with a speedtest server in Warsaw.
+
+| Download | Upload | Idle ping | Ping under load | Jitter |
+|---|---|---|---|---|
+| 92 Mbps | 98 Mbps | 116 ms | 256 ms | 2 ms |
+
+On that route plain WireGuard, QUIC and KCP could not get through the UDP limit. Wrapped in fake TCP, WireGuard ran at full speed, and latency under load stayed low because fake TCP has no retransmission queue of its own.
+
+## Forwarding a port through the tunnel
+
+wg2raw builds the tunnel only (`10.77.77.1` is the server, `10.77.77.2` the client). To expose a service that runs on the server, such as a proxy inbound on port 443, forward a port on the client machine to the server's tunnel IP:
+
+```bash
+sudo apt install -y socat
+sudo socat TCP-LISTEN:2087,fork,reuseaddr TCP:10.77.77.1:443
+```
+
+Users then connect to `CLIENT_PUBLIC_IP:2087`. This runs in the foreground; use a systemd unit or `tmux` to keep it running.
+
 ## Commands
 
 All menu items can also be run directly:
