@@ -1,5 +1,11 @@
 # wg2raw
 
+[![Version](https://img.shields.io/github/v/tag/javadkhammari/wg2raw?label=version&sort=semver)](https://github.com/javadkhammari/wg2raw/releases)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+![Shell](https://img.shields.io/badge/shell-bash-blue)
+![Platform](https://img.shields.io/badge/platform-Debian%20%7C%20Ubuntu-orange)
+![Stack](https://img.shields.io/badge/stack-WireGuard%20%2B%20udp2raw-lightgrey)
+
 A menu-driven Bash tool that sets up and manages a **WireGuard tunnel over [udp2raw](https://github.com/wangyu-/udp2raw) (faketcp)** between two Linux servers.
 
 - **Server**: the public, upstream machine. udp2raw listens on a TCP port.
@@ -118,6 +124,10 @@ sudo wg2raw uninstall
 - If the status screen shows "huge packet" warnings, lower the MTU to `1200` in Settings, or turn on the NIC offload fix.
 - The udp2raw password is still visible in `ps` output, because udp2raw only accepts it as an argument.
 - IPv4 only.
+
+## Related project
+
+[MultiTunnel Relay Manager](https://github.com/javadkhammari/multitunnel) builds encrypted TCP/UDP tunnels over GOST or FRP (TLS, QUIC, KCP, WebSocket, multiplexed sessions) across entry, relay and final servers. Use it when you need several services, multi-hop routes or TCP-based transports; use wg2raw when you want a single WireGuard link disguised as TCP.
 
 ## License
 
